@@ -50,30 +50,68 @@ fichiers de données contenus dans les archives PAK du jeu. Procédure général
 python3 scripts/evaluate.py --list
 python3 scripts/evaluate.py --selftest
 
-python3 scripts/evaluate.py --mission creeper_woods --mode apocalypse \
+python3 scripts/evaluate.py --mission creeperwoods --mode apocalypse \
     --modifier mobDamageMul:200 --modifier nightMode
 
-python3 scripts/evaluate.py --mission obsidian_pinnacle --mode apocalypse_plus \
+python3 scripts/evaluate.py --mission obsidianpinnacle --mode apocalypse_plus \
     --threat 25 --modifier mobHealthMul:200 --modifier instantGameOver
+
+python3 scripts/evaluate.py --mission hm_spidercave --mode apocalypse \
+    --modifier mobDamageMul:150 --modifier mobEnchantment
 ```
 
 Exemple de sortie :
 
 ```json
 {
-  "mission": "obsidian_pinnacle",
+  "mission": "obsidianpinnacle",
+  "label": "Pic d'Obsidienne",
   "mode": "apocalypse_plus",
   "threat": 25,
-  "base": 1.8,
+  "base": 6.0,
   "mode_multiplier": 7.5,
   "modifiers": [
-    { "modifier": "mobDamageMul", "magnitude": 200.0, "factor": 2.0 },
-    { "modifier": "mobHealthMul", "magnitude": 100.0, "factor": 1.4 },
-    { "modifier": "nightMode", "magnitude": null, "factor": 1.15 }
+    { "modifier": "mobHealthMul", "magnitude": 200.0, "factor": 1.8 },
+    { "modifier": "instantGameOver", "magnitude": null, "factor": 2.0 }
   ],
-  "score": 43.47
+  "score": 162.0
 }
 ```
+
+## Difficulté de base : données extraites du jeu
+
+Les valeurs de `data/missions.json` ne sont plus des estimations manuelles : elles sont
+**calculées à partir des fichiers de niveaux réels du jeu** (`Dungeons/Content/data/lovika/levels/*.json`),
+extraits des PAK fournis (pakchunk0 pour la base + secrets, pakchunk33–39 pour les DLC,
+pakchunk80 pour la Grotte aux Araignées), déchiffrés avec la clé AES du jeu puis décompressés.
+
+Pour chaque niveau, les métriques suivantes ont été extraites :
+
+| Métrique | Clé du JSON de niveau |
+|---|---|
+| Étendues (longueur du niveau) | `stretches` |
+| Donjons | `dungeons` |
+| Groupes de mobs | `mob-groups` |
+| Types de mobs distincts | `mob-groups[].types` |
+| Défis | `challenges` |
+| Densité de mobs | `default-mobs.density` |
+
+Formule de la base (échelle 1–10, documentée dans `missions.json`) :
+
+```
+brut = étendues + 0.6×donjons + 0.15×types + 0.10×groupes + 0.08×défis   (× densité)
+base = 1 + 9 × ÉchelleLog(brut), normalisée sur les missions story/dlc/secret
+```
+
+51 missions sont couvertes : histoire, DLC, missions secrètes, 11 chasses antiques
+(`hm_*`, `ancientdungeons`) et la Tour. Sont exclues (non scorées) : `lobby`,
+`menudummy` (aucun combat) et `netherhypermission-hyper` (tirage procédural non
+décrit dans les JSON).
+
+> **Limite assumée** : c'est un proxy structurel. Le jeu ne contient aucune table de
+> difficulté en JSON — les valeurs officielles sont compilées dans les uassets/Blueprints
+> (`BP_IngameGameMode`, DataTables). Les missions très scriptées (boss, ex. Pic
+d'Obsidienne) peuvent être sous-estimées : ajustez leur champ `base` si besoin.
 
 ## Équilibrage des multiplicateurs
 

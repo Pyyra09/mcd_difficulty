@@ -11,9 +11,9 @@ de référence, le bonus est mis à l'échelle linéairement :
     effectif = 1 + (multiplier - 1) x (magnitude / reference)
 
 Usage :
-    python3 evaluate.py --mission creeper_woods --mode apocalypse \\
+    python3 evaluate.py --mission creeperwoods --mode apocalypse \\
         --modifier mobDamageMul:150 --modifier nightMode
-    python3 evaluate.py --mission obsidian_pinnacle --mode apocalypse_plus \\
+    python3 evaluate.py --mission obsidianpinnacle --mode apocalypse_plus \\
         --threat 25 --modifier mobHealthMul:200 --modifier instantGameOver
     python3 evaluate.py --selftest
 """
@@ -100,22 +100,22 @@ def selftest():
     modes = load("difficulty_modes.json")
     mods = load("modifier_multipliers.json")
 
-    r1 = evaluate(missions, modes, mods, "creeper_woods", "default")
-    assert r1["score"] == 1.0, r1
+    r1 = evaluate(missions, modes, mods, "creeperwoods", "default")
+    assert r1["score"] == 8.9, r1
 
-    r2 = evaluate(missions, modes, mods, "creeper_woods", "apocalypse",
+    r2 = evaluate(missions, modes, mods, "creeperwoods", "apocalypse",
                   modifiers=["mobDamageMul:200", "nightMode"])
-    expected = 1.0 * 2.0 * 2.0 * 1.15
+    expected = 8.9 * 2.0 * 2.0 * 1.15
     assert abs(r2["score"] - round(expected, 2)) < 0.01, r2
 
-    r3 = evaluate(missions, modes, mods, "obsidian_pinnacle", "apocalypse_plus",
+    r3 = evaluate(missions, modes, mods, "obsidianpinnacle", "apocalypse_plus",
                   threat=25, modifiers=["mobHealthMul:200", "instantGameOver"])
-    expected = 1.8 * 7.5 * 1.8 * 2.0
+    expected = 6.0 * 7.5 * 1.8 * 2.0
     assert abs(r3["score"] - round(expected, 2)) < 0.01, r3
 
-    r4 = evaluate(missions, modes, mods, "soggy_swamp", "adventure",
+    r4 = evaluate(missions, modes, mods, "soggyswamp", "adventure",
                   modifiers=["soulCountMul:300"])
-    expected = 1.2 * 1.5 * (1.0 + (0.85 - 1.0) * (300 / 200))
+    expected = 8.1 * 1.5 * (1.0 + (0.85 - 1.0) * (300 / 200))
     assert abs(r4["score"] - round(expected, 2)) < 0.01, r4
 
     print("Selftest OK")
@@ -125,7 +125,7 @@ def selftest():
 
 def main():
     parser = argparse.ArgumentParser(description="Évalue la difficulté d'une mission MCD.")
-    parser.add_argument("--mission", help="id de mission (ex: creeper_woods)")
+    parser.add_argument("--mission", help="id de mission (ex: creeperwoods, hm_spidercave)")
     parser.add_argument("--mode", default="default",
                         help="default | adventure | apocalypse | apocalypse_plus")
     parser.add_argument("--threat", type=int, help="niveau de menace Apocalypse+ (1-25)")
