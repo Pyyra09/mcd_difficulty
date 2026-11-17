@@ -1,0 +1,20 @@
+{
+  "_comment": "Difficulté de base par mode et par niveau de menace. La difficulté effective d'une mission = base_mission x mode, puis x product des multiplicateurs de modificateurs.",
+  "version": 1,
+  "modes": {
+    "default": { "label": "Défaut", "multiplier": 1.00 },
+    "adventure": { "label": "Aventure", "multiplier": 1.50 },
+    "apocalypse": { "label": "Apocalypse", "multiplier": 2.00 },
+    "apocalypse_plus": {
+      "label": "Apocalypse+",
+      "multiplier": 2.00,
+      "threat_levels": {
+        "1": 2.10, "2": 2.20, "3": 2.30, "4": 2.45, "5": 2.60,
+        "6": 2.75, "7": 2.90, "8": 3.05, "9": 3.20, "10": 3.40,
+        "11": 3.60, "12": 3.80, "13": 4.00, "14": 4.20, "15": 4.40,
+        "16": 4.65, "17": 4.90, "18": 5.15, "19": 5.40, "20": 5.70,
+        "21": 6.00, "22": 6.35, "23": 6.70, "24": 7.05, "25": 7.50
+      }
+    }
+  }
+}

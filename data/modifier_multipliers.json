@@ -1,0 +1,132 @@
+{
+  "_comment": "Multiplicateur de difficulté par modificateur (Affector). Les noms internes correspondent aux Affectors utilisés par le jeu. 'multiplier' s'applique à la magnitude de référence 'reference_percent' ; au-delà ou en dessous, le bonus est mis à l'échelle linéairement. 'beneficial': true signifie que le modificateur aide le joueur et réduit donc la difficulté.",
+  "version": 1,
+  "scaling": "linear",
+  "modifiers": {
+    "mobDamageMul": {
+      "label": "Dégâts des mobs modifiés",
+      "multiplier": 1.50,
+      "reference_percent": 100,
+      "beneficial": false,
+      "range_percent": [10, 200]
+    },
+    "mobHealthMul": {
+      "label": "Vie des mobs modifiée",
+      "multiplier": 1.40,
+      "reference_percent": 100,
+      "beneficial": false,
+      "range_percent": [10, 200]
+    },
+    "mobSpeedMul": {
+      "label": "Vitesse des mobs modifiée",
+      "multiplier": 1.20,
+      "reference_percent": 50,
+      "beneficial": false,
+      "range_percent": [10, 100]
+    },
+    "playerDamageMul": {
+      "label": "Dégâts du joueur modifiés",
+      "multiplier": 1.35,
+      "reference_percent": 50,
+      "beneficial": false,
+      "range_percent": [-100, 100]
+    },
+    "playerHealthMul": {
+      "label": "Vie du joueur modifiée",
+      "multiplier": 1.35,
+      "reference_percent": 50,
+      "beneficial": false,
+      "range_percent": [-100, 100]
+    },
+    "playerSpeedMul": {
+      "label": "Vitesse du joueur modifiée",
+      "multiplier": 0.90,
+      "reference_percent": 40,
+      "beneficial": true,
+      "range_percent": [10, 70]
+    },
+    "nightMode": {
+      "label": "Mode nuit",
+      "multiplier": 1.15,
+      "reference_percent": 100,
+      "beneficial": false,
+      "range_percent": [100, 100]
+    },
+    "instantGameOver": {
+      "label": "Game over dès qu'un joueur est à terre",
+      "multiplier": 2.00,
+      "reference_percent": 100,
+      "beneficial": false,
+      "range_percent": [100, 100]
+    },
+    "startupLives": {
+      "label": "Nombre de vies initial réduit",
+      "multiplier": 1.40,
+      "reference_percent": 40,
+      "beneficial": false,
+      "range_percent": [0, 4],
+      "range_unit": "lives",
+      "lower_is_harder": true
+    },
+    "petCount": {
+      "label": "Nombre d'animaux modifié",
+      "multiplier": 0.95,
+      "reference_percent": 100,
+      "beneficial": true,
+      "range_percent": [2, 4],
+      "range_unit": "pets"
+    },
+    "soulCountMul": {
+      "label": "Âmes collectées multipliées",
+      "multiplier": 0.85,
+      "reference_percent": 200,
+      "beneficial": true,
+      "range_percent": [100, 400]
+    },
+    "emeraldHealthAdd": {
+      "label": "Les émeraudes soignent le joueur",
+      "multiplier": 0.90,
+      "reference_percent": 20,
+      "beneficial": true,
+      "range_percent": [5, 40],
+      "range_unit": "hp"
+    },
+    "replaceMeleeMobs": {
+      "label": "Des mobs de mêlée sont remplacés",
+      "multiplier": 1.25,
+      "reference_percent": 30,
+      "beneficial": false,
+      "range_percent": [10, 50]
+    },
+    "replaceRangedMobs": {
+      "label": "Des mobs à distance sont remplacés",
+      "multiplier": 1.25,
+      "reference_percent": 30,
+      "beneficial": false,
+      "range_percent": [10, 50]
+    },
+    "mobEnchantment": {
+      "label": "Des mobs ont un enchantement",
+      "multiplier": 1.30,
+      "reference_percent": 30,
+      "beneficial": false,
+      "range_percent": [10, 50]
+    },
+    "playerEnchantment": {
+      "label": "Le joueur reçoit un enchantement",
+      "multiplier": 0.85,
+      "reference_percent": 100,
+      "beneficial": true,
+      "range_percent": [100, 100]
+    },
+    "threatIncreased": {
+      "label": "Menace accrue (bannière de capitaine)",
+      "multiplier": 1.10,
+      "reference_percent": 100,
+      "beneficial": false,
+      "range_percent": [100, 600],
+      "range_unit": "stacks",
+      "per_stack": true
+    }
+  }
+}
